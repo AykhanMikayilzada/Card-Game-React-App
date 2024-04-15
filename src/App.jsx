@@ -75,10 +75,10 @@ const App = () => {
           card.value === "JACK"
         ) {
           return 10;
-        } else if (card.value === "ACE") {
+        } else if (card.value? card.value : "error" === "ACE") {
           return 11;
         } else {
-          return parseInt(card.value);
+          return parseInt(card.value? card.value : "error");
         }
       });
       const totalScore = values.reduce((acc, curr) => acc + curr, 0);
@@ -89,7 +89,7 @@ const App = () => {
   return (
     <div className="App">
       <div className="buttonDiv">
-        <button onClick={drawCards}>Draw Cards</button>
+        <button onClick={drawCards? drawCards : "error"}>Draw Cards</button>
       </div>
 
       <Cards cards={cards} />
