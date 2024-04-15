@@ -2,6 +2,7 @@
   "name": "travel-app-react",
   "private": true,
   "version": "0.0.0",
+  "homepage": "./",
   "type": "module",
   "scripts": {
     "deploy": "netlify deploy",

@@ -36,9 +36,9 @@ const App = () => {
     };
 
     fetchDeckId().then((deckId) => {
-      if (deckId) {
-        setDeckId(deckId);
-        fetchCards(deckId);
+      if (deckId? deckId : "error") {
+        setDeckId(deckId? deckId : "error");
+        fetchCards(deckId? deckId : "error");
       }
     });
   }, []);
@@ -46,7 +46,7 @@ const App = () => {
   const fetchCards = async (deckId) => {
     try {
       const response = await axios.get(
-        `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`
+        `https://deckofcardsapi.com/api/deck/${deckId? deckId : "error"}/draw/?count=2`
       );
       const newCards = response.data.cards;
       setCards(newCards);
