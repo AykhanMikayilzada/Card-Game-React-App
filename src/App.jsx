@@ -29,7 +29,6 @@ const App = () => {
           "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
         );
         setDeckId(response.data.deck_id);
-        fetchCards();
       } catch (error) {
         console.error("Error fetching deck ID:", error);
       }
@@ -56,6 +55,12 @@ const App = () => {
   };
 
   useEffect(() => {
+    if (deckId) {
+      fetchCards();
+    }
+  }, [deckId]);
+
+  useEffect(() => {
     if (cards.length > 0) {
       const values = cards.map((card) => {
         if (
@@ -74,10 +79,6 @@ const App = () => {
       setScore(totalScore);
     }
   }, [cards]);
-
-  useEffect(() => {
-    fetchCards();
-  }, []);
 
   return (
     <div className="App">
