@@ -28,16 +28,22 @@ const App = () => {
         const response = await axios.get(
           "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
         );
-        setDeckId(response.data.deck_id);
+        return response.data.deck_id;
       } catch (error) {
         console.error("Error fetching deck ID:", error);
+        return null;
       }
     };
 
-    fetchDeckId();
+    fetchDeckId().then((deckId) => {
+      if (deckId) {
+        setDeckId(deckId);
+        fetchCards(deckId);
+      }
+    });
   }, []);
 
-  const fetchCards = async () => {
+  const fetchCards = async (deckId) => {
     try {
       const response = await axios.get(
         `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`
@@ -51,12 +57,12 @@ const App = () => {
 
   const drawCards = async () => {
     setShowScore(true);
-    fetchCards();
+    fetchCards(deckId);
   };
 
   useEffect(() => {
     if (deckId) {
-      fetchCards();
+      fetchCards(deckId);
     }
   }, [deckId]);
 
